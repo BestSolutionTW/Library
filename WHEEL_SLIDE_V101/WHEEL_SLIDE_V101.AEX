@@ -1,0 +1,17 @@
+
+;;******************************************************
+;;***** USER PROGRAM EXTERNAL REFERENCE FOR ASM CODE   *
+;;******************************************************
+EXTERN  _WHEEL_SLIDE_V101_INITIAL       :NEAR
+EXTERN  _WHEEL_SLIDE_V101               :NEAR
+EXTERN  _WHEEL_SLIDE_POS                     :NEAR
+
+
+
+
+
+
+
+
+
+
