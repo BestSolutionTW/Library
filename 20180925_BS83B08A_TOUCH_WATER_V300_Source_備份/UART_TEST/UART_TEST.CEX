@@ -1,0 +1,17 @@
+
+//***********************************************
+//***** UART_TEST EXTERNAL REFERENCE FOR C CODE *
+//***********************************************
+extern  void    UART_TEST_INITIAL();          
+extern  void    UART_TEST();                   
+
+
+
+
+
+
+
+
+
+
+

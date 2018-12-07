@@ -1,0 +1,17 @@
+
+;;***************************************************
+;;***** UART_TEST EXTERNAL REFERENCE FOR ASM CODE   *
+;;***************************************************
+EXTERN  _UART_TEST_INITIAL      :NEAR
+EXTERN  _UART_TEST              :NEAR
+
+
+
+
+
+
+
+
+
+
+

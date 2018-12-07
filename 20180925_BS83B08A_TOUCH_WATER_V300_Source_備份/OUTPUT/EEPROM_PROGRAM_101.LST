@@ -1,0 +1,347 @@
+"File: EEPROM_PROGRAM_101.asm  Assembler  Version 2.98      Page 1
+
+
+   1  0000                      
+   2  0000              
+   3  0000              message '***************************************************************'
+   4  0000              message '*PROJECT NAME :USER PROGRAM CODE                              *'
+   5  0000              message '*     VERSION :                                               *'
+   6  0000              message '*     IC BODY :                                               *'
+   7  0000              message '* ICE VERSION :                                               *'
+   8  0000              message '*      REMARK :                                               *'
+   9  0000              message '***************************************************************'
+  10  0000              
+  11  0000                              INCLUDE EEPROM_PROGRAM.INC
+
+
+
+
+
+
+
+
+  12  0000              
+  13  0000                              PUBLIC  _EEPROM_PROGRAM_INITIAL
+  14  0000                              PUBLIC  _EEPROM_PROGRAM 
+  15  0000                              
+  16  0000                              
+  17  0000                              PUBLIC  _WATER_CAP_REBLA_INIT
+  18  0000                              PUBLIC  _WATER_FLAG
+  19  0000                              PUBLIC  _GET_WATER_EEPROM_STATE 
+  20  0000                              
+  21  0000                              
+  22  0000              
+  23  0000              #DEFINE ADD_BLOCK1          6
+  24  0000                              
+  25  0000                              ;========================
+  26  0000                              ;=USER DATA DEFINE      =
+  27  0000                              ;========================
+  28  0000              USER_DATA       .SECTION   'DATA'
+  29  0000              
+  30  0000              _WATER_FLAG     LABEL   BYTE    ;for C complier V3
+  31  0000              ;-OPTION WATER BIT DEFINE     
+  32  0000  00          _GET_WATER_EEPROM_STATE DBIT                                      
+  33  0000              _READ_DATA_TO_RAM       DBIT
+  34  0000              _BLOCK1_CHECK           DBIT
+  35  0000              _BLOCK2_CHECK           DBIT                                                      
+  36  0000              _RESET_DATA             DBIT                                                    
+  37  0000              _RE_SAVE_DATA           DBIT                                                    
+  38  0000              _WATER_FLAG7            DBIT                                                    
+  39  0000              _WATER_FLAG8            DBIT      
+  40  0001              
+  41  0001                              ;========================
+  42  0001                              ;=USER PROGRAM          =
+  43  0001                              ;========================
+  44  0000              EEPROM_PROGRAM    .SECTION   'CODE'
+  45  0000                                         
+  46  0000              ;;***********************************************************                           
+  47  0000              ;;*SUB. NAME:USER INITIAL PROGRAM                           *                           
+  48  0000              ;;*INPUT    :                                               *                           
+  49  0000              ;;*OUTPUT   :                                               *                           
+  50  0000              ;;*USED REG.:                                               *                           
+  51  0000              ;;*FUNCTION :                                               *                           
+"File: EEPROM_PROGRAM_101.asm  Assembler  Version 2.98      Page 2
+
+  52  0000              ;;***********************************************************                           
+  53  0000                                      ;;**************************
+  54  0000              _EEPROM_PROGRAM_INITIAL:;;* EEPROM_PROGRAM_INITIAL *
+  55  0000                                      ;;**************************
+  56  0000              
+  57  0000  340E                        CLR     EMI
+  58  0001  0F06                        MOV     A,ADD_BLOCK1
+  59  0002  0080     E                  MOV     _DATA_BUF[1],A
+  60  0003  3400     R                  CLR     _READ_DATA_TO_RAM
+  61  0004  2000     R                  CALL    READ_BLOCK
+  62  0005  3D0A                        SZ      Z
+  63  0006  3000     R                  SET     _BLOCK1_CHECK
+  64  0007                              
+  65  0007                              ;MOV     A,ADD_BLOCK2
+  66  0007  2000     E                  CALL    _GET_KEY_AMOUNTx3
+  67  0008  0B07                        ADD     A,ADD_BLOCK1+1
+  68  0009                              
+  69  0009  0080     E                  MOV     _DATA_BUF[1],A
+  70  000A  3400     R                  CLR     _READ_DATA_TO_RAM
+  71  000B  2000     R                  CALL    READ_BLOCK
+  72  000C  3D0A                        SZ      Z
+  73  000D  3000     R                  SET     _BLOCK2_CHECK
+  74  000E  300E                        SET     EMI
+  75  000F                              
+  76  000F  0003                        RET
+  77  0010                              
+  78  0010              ;;***********************************************************                           
+  79  0010              ;;*SUB. NAME:USER_MAIN                                      *                           
+  80  0010              ;;*INPUT    :                                               *                           
+  81  0010              ;;*OUTPUT   :                                               *                           
+  82  0010              ;;*USED REG.:                                               *                           
+  83  0010              ;;*FUNCTION :                                               *                           
+  84  0010              ;;***********************************************************                           
+  85  0010                              ;;********************
+  86  0010              _EEPROM_PROGRAM:  ;;USER PROGRAM ENTRY *
+  87  0010                              ;;********************
+  88  0010                              
+  89  0010  3800     E                  SNZ     _TKS_ACTIVEF
+  90  0011  3000     R                  SET     _RESET_DATA
+  91  0012                              
+  92  0012  3C00     E                  SZ      _TKS_ACTIVEF
+  93  0013  3800     E                  SNZ     _TKS_500MSF
+  94  0014  2800     R                  JMP     EEPROM_SAVE_END
+  95  0015                              
+  96  0015  3800     R                  SNZ     _GET_WATER_EEPROM_STATE
+  97  0016  2800     R                  JMP     EEPROM_SAVE
+  98  0017                              
+  99  0017  3C00     R                  SZ      _RESET_DATA
+ 100  0018  2800     R                  JMP     RESET_DATA
+ 101  0019  2800     R                  JMP     EEPROM_SAVE_END
+ 102  001A                      
+ 103  001A                      EEPROM_SAVE:        
+ 104  001A  340E                        CLR     EMI
+ 105  001B  3800     R                  SNZ     _RE_SAVE_DATA
+ 106  001C  2000     R                  CALL    READ_BLOCK1_TO_RAM
+ 107  001D  2000     R                  CALL    WRITE_BLOCK1_TO_RAM
+ 108  001E                              
+ 109  001E                      RESET_DATA:
+ 110  001E  2000     R                  CALL    READ_BLOCK1_TO_RAM
+ 111  001F  3400     R                  CLR     _RESET_DATA
+"File: EEPROM_PROGRAM_101.asm  Assembler  Version 2.98      Page 3
+
+ 112  0020  3400     R                  CLR     _RE_SAVE_DATA
+ 113  0021  3000     R                  SET     _GET_WATER_EEPROM_STATE
+ 114  0022                      EEPROM_SAVE_END:
+ 115  0022  300E                        SET     EMI
+ 116  0023  0003                        RET
+ 117  0024                              
+ 118  0024              ;*****************************************************************************              
+ 119  0024                      READ_BLOCK1_TO_RAM:     
+ 120  0024  3800     R                  SNZ     _BLOCK1_CHECK
+ 121  0025  2800     R                  JMP     READ_BLOCK2_TO_RAM
+ 122  0026  0F06                        MOV     A,ADD_BLOCK1
+ 123  0027  0080     E                  MOV     _DATA_BUF[1],A
+ 124  0028  3000     R                  SET     _READ_DATA_TO_RAM
+ 125  0029  2000     R                  CALL    READ_BLOCK
+ 126  002A  3D0A                        SZ      Z
+ 127  002B  3000     R                  SET     _BLOCK1_CHECK
+ 128  002C  2800     R                  JMP     WRITE_BLOCK1_TO_RAM
+ 129  002D                              
+ 130  002D                      READ_BLOCK2_TO_RAM: 
+ 131  002D  3800     R                  SNZ     _BLOCK2_CHECK
+ 132  002E  0003                        RET
+ 133  002F                              ;--
+ 134  002F                              ;MOV     A,ADD_BLOCK2
+ 135  002F  2000     E                  CALL    _GET_KEY_AMOUNTx3
+ 136  0030  0B07                        ADD     A,ADD_BLOCK1+1
+ 137  0031                              ;--
+ 138  0031  0080     E                  MOV     _DATA_BUF[1],A
+ 139  0032  3000     R                  SET     _READ_DATA_TO_RAM
+ 140  0033  2000     R                  CALL    READ_BLOCK
+ 141  0034  3D0A                        SZ      Z
+ 142  0035  3000     R                  SET     _BLOCK2_CHECK
+ 143  0036  0003                        RET
+ 144  0037                              
+ 145  0037                      WRITE_BLOCK1_TO_RAM:    
+ 146  0037  3C00     R                  SZ      _BLOCK1_CHECK
+ 147  0038  2800     R                  JMP     $+5             
+ 148  0039  0F06                        MOV     A,ADD_BLOCK1
+ 149  003A  0080     E                  MOV     _DATA_BUF[1],A
+ 150  003B  2000     R                  CALL    WRITE_BLOCK
+ 151  003C  3000     R                  SET     _BLOCK1_CHECK
+ 152  003D                      WRITE_BLOCK2_TO_RAM:
+ 153  003D  3C00     R                  SZ      _BLOCK2_CHECK
+ 154  003E  2800     R                  JMP     $+6
+ 155  003F                              ;--
+ 156  003F                              ;MOV     A,ADD_BLOCK2
+ 157  003F  2000     E                  CALL    _GET_KEY_AMOUNTx3
+ 158  0040  0B07                        ADD     A,ADD_BLOCK1+1
+ 159  0041                              ;--
+ 160  0041  0080     E                  MOV     _DATA_BUF[1],A
+ 161  0042  2000     R                  CALL    WRITE_BLOCK
+ 162  0043  3000     R                  SET     _BLOCK2_CHECK
+ 163  0044  0003                        RET
+ 164  0045                              
+ 165  0045                              
+ 166  0045              ;;***********************************************************                           
+ 167  0045              ;;*SUB. NAME:WRITE EEPROM                                   *                           
+ 168  0045              ;;*INPUT    :                                               *                           
+ 169  0045              ;;*OUTPUT   :                                               *                           
+ 170  0045              ;;*USED REG.:                                               *                           
+ 171  0045              ;;*FUNCTION :                                               *                           
+"File: EEPROM_PROGRAM_101.asm  Assembler  Version 2.98      Page 4
+
+ 172  0045              ;;***********************************************************
+ 173  0045              
+ 174  0045              
+ 175  0045                      WRITE_BLOCK:    
+ 176  0045  0F00     E                  MOV     A,OFFSET _KEY_REF+1
+ 177  0046  0081                        MOV     MP0,A
+ 178  0047                              ;--kye x 3
+ 179  0047  2000     E                  CALL    _GET_KEY_AMOUNTx3
+ 180  0048  0080     E                  MOV     _DATA_BUF[0],A
+ 181  0049                              ;--
+ 182  0049  0F04                        MOV     A,4
+ 183  004A  0080     E                  MOV     _DATA_BUF[2],A
+ 184  004B  1F00     E                  CLR     _DATA_BUF[3]    ;CHECK SUM
+ 185  004C                      WRITE_BLOCK1_DATA_LOOP:
+ 186  004C  1700     E                  SDZA    _DATA_BUF[2]
+ 187  004D  2800     R                  JMP     $+4
+ 188  004E  0F04                        MOV     A,4
+ 189  004F  0080     E                  MOV     _DATA_BUF[2],A
+ 190  0050  1481                        INC     MP0
+ 191  0051                              
+ 192  0051  0700     E                  MOV     A,_DATA_BUF[1]
+ 193  0052  009E                        MOV     EEA,A
+ 194  0053  0700                        MOV     A,IAR0
+ 195  0054  0380     E                  ADDM    A,_DATA_BUF[3]
+ 196  0055  2000     R                  CALL    WRITE_EEPROM
+ 197  0056                              
+ 198  0056  1481                        INC     MP0
+ 199  0057                      WRITE_DATA_END:
+ 200  0057  1580     E                  DEC     _DATA_BUF[2]
+ 201  0058  1480     E                  INC     _DATA_BUF[1]
+ 202  0059  1780     E                  SDZ     _DATA_BUF[0]
+ 203  005A  2800     R                  JMP     WRITE_BLOCK1_DATA_LOOP
+ 204  005B                              
+ 205  005B  0700     E                  MOV     A,_DATA_BUF[1]
+ 206  005C  009E                        MOV     EEA,A
+ 207  005D  0700     E                  MOV     A,_DATA_BUF[3]
+ 208  005E  2000     R                  CALL    WRITE_EEPROM
+ 209  005F  0003                        RET
+ 210  0060                              
+ 211  0060              ;******************************************************************************             
+ 212  0060                      READ_BLOCK: 
+ 213  0060  0F00     E                  MOV     A,OFFSET _KEY_REF
+ 214  0061  0081                        MOV     MP0,A
+ 215  0062                              ;--kye x 3
+ 216  0062  2000     E                  CALL    _GET_KEY_AMOUNTx3
+ 217  0063  0080     E                  MOV     _DATA_BUF[0],A
+ 218  0064                              ;--
+ 219  0064  0F02                        MOV     A,2
+ 220  0065  0080     E                  MOV     _DATA_BUF[2],A
+ 221  0066  1F00     E                  CLR     _DATA_BUF[3]    ;CHECK SUM
+ 222  0067                              
+ 223  0067                         if KeyAmount == 1   
+ 224  0067                              MOV     A,1
+ 225  0067                              MOV     _DATA_BUF[4],A
+ 226  0067                         else  
+ 227  0067  1100     E                  SWAPA   _KEY_IO_SEL[0]
+ 228  0068  0080     E                  MOV     _DATA_BUF[4],A
+ 229  0069                         endif
+ 230  0069                              
+ 231  0069                      READ_BLOCK1_DATA_LOOP:
+"File: EEPROM_PROGRAM_101.asm  Assembler  Version 2.98      Page 5
+
+ 232  0069  1700     E                  SDZA    _DATA_BUF[2]
+ 233  006A  2800     R                  JMP     $+4
+ 234  006B  0F04                        MOV     A,4
+ 235  006C  0080     E                  MOV     _DATA_BUF[2],A
+ 236  006D  1481                        INC     MP0
+ 237  006E                              
+ 238  006E  0700     E                  MOV     A,_DATA_BUF[1]
+ 239  006F  2000     R                  CALL    READ_EEPROM
+ 240  0070  0080     E                  MOV     _DATA_BUF[5],A
+ 241  0071                              
+ 242  0071  1B00     E                  RRCA    _DATA_BUF[4]
+ 243  0072  380A                        SNZ     C
+ 244  0073  2800     R                  JMP     $+4
+ 245  0074  0700     E                  MOV     A,_DATA_BUF[5]
+ 246  0075  3C00     R                  SZ      _READ_DATA_TO_RAM
+ 247  0076  0080                        MOV     IAR0,A
+ 248  0077                              
+ 249  0077  1580     E                  DEC     _DATA_BUF[2]
+ 250  0078  0700     E                  MOV     A,_DATA_BUF[2]
+ 251  0079  0C02                        XOR     A,2
+ 252  007A  3D0A                        SZ      Z
+ 253  007B  1980     E                  RR      _DATA_BUF[4]
+ 254  007C                              
+ 255  007C  0700     E                  MOV     A,_DATA_BUF[5]
+ 256  007D  0380     E                  ADDM    A,_DATA_BUF[3]
+ 257  007E  1481                        INC     MP0
+ 258  007F                      READ_DATA_END:
+ 259  007F  1480     E                  INC     _DATA_BUF[1]
+ 260  0080  1780     E                  SDZ     _DATA_BUF[0]
+ 261  0081  2800     R                  JMP     READ_BLOCK1_DATA_LOOP
+ 262  0082                              
+ 263  0082  0700     E                  MOV     A,_DATA_BUF[1]
+ 264  0083  2000     R                  CALL    READ_EEPROM
+ 265  0084  0400     E                  XOR     A,_DATA_BUF[3]
+ 266  0085  0003                        RET
+ 267  0086                              
+ 268  0086              ;;***********************************************************                           
+ 269  0086              ;;*SUB. NAME:                                               *                           
+ 270  0086              ;;*INPUT    :                                               *                           
+ 271  0086              ;;*OUTPUT   :                                               *                           
+ 272  0086              ;;*USED REG.:                                               *                           
+ 273  0086              ;;*FUNCTION :                                               *                           
+ 274  0086              ;;***********************************************************
+ 275  0086              
+ 276  0086              _WATER_CAP_REBLA_INIT:
+ 277  0086  1F00     R                  CLR     _WATER_FLAG
+ 278  0087  2800     E                  JMP     _LIBRARY_RESET
+ 279  0088              
+ 280  0088              ;;***********************************************************                           
+ 281  0088              ;;*SUB. NAME:WRITE EEPROM                                   *                           
+ 282  0088              ;;*INPUT    :                                               *                           
+ 283  0088              ;;*OUTPUT   :                                               *                           
+ 284  0088              ;;*USED REG.:                                               *                           
+ 285  0088              ;;*FUNCTION :                                               *                           
+ 286  0088              ;;***********************************************************
+ 287  0088              WRITE_EEPROM:
+ 288  0088  009F                        MOV     EED,A
+ 289  0089  0F40                        MOV     A,040H
+ 290  008A  0083                        MOV     MP1,A
+ 291  008B  0F01                        MOV     A,001H
+"File: EEPROM_PROGRAM_101.asm  Assembler  Version 2.98      Page 6
+
+ 292  008C  0084                        MOV     BP,A
+ 293  008D                              
+ 294  008D  3182                        SET     IAR1.3
+ 295  008E  3102                        SET     IAR1.2
+ 296  008F                              ;-WAIT WRITE FINISH
+ 297  008F  3D02                        SZ      IAR1.2
+ 298  0090  2800     R                  JMP     $-1
+ 299  0091  1F1E                        CLR     EEA
+ 300  0092  0003                        RET
+ 301  0093                              
+ 302  0093              ;;***********************************************************                           
+ 303  0093              ;;*SUB. NAME:WRITE EEPROM                                   *                           
+ 304  0093              ;;*INPUT    :                                               *                           
+ 305  0093              ;;*OUTPUT   :                                               *                           
+ 306  0093              ;;*USED REG.:                                               *                           
+ 307  0093              ;;*FUNCTION :                                               *                           
+ 308  0093              ;;***********************************************************
+ 309  0093              READ_EEPROM: 
+ 310  0093  009E                        MOV     EEA,A
+ 311  0094  0F40                        MOV     A,040H
+ 312  0095  0083                        MOV     MP1,A
+ 313  0096  0F01                        MOV     A,001H
+ 314  0097  0084                        MOV     BP,A
+ 315  0098  3082                        SET     IAR1.1
+ 316  0099  3002                        SET     IAR1.0
+ 317  009A                              ;-WAIT READ FINISH
+ 318  009A  3C02                        SZ      IAR1.0
+ 319  009B  2800     R                  JMP     $-1
+ 320  009C  071F                        MOV     A,EED
+ 321  009D  1F02                        CLR     IAR1
+ 322  009E  1F1E                        CLR     EEA
+ 323  009F  0003                        RET
+
+
+        0 Errors, 0 Warnings

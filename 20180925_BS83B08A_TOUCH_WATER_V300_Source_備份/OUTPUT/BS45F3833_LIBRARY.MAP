@@ -1,0 +1,133 @@
+
+Linker Version 8.7.7.181026
+Input Object File: C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\MAIN_PROGRAM_V102.OBJ
+Input Object File: C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\USER_PROGRAM.OBJ
+Input Object File: C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\STARTUP1_L.OBJ
+Input Object File: C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\EEPROM_PROGRAM_101.OBJ
+Input Object File: C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\BS83B08A_CTOUCH_WATER_V501.OBJ
+
+Input Library File: C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\LIBHOLTEKGCC.LIB
+Input Library File: C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V7.x\LIB\v3_tabrd_mrsc.lib
+
+
+     Bank    Start     End      Length     Class    AvgIns    Name
+     00h     0000h     0003h    0004h      CODE               PROGRAM_ENTRY (C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\MAIN_PROGRAM_V102.OBJ)
+     00h     0004h     0004h    0001h      CODE               @Interrupt_Extemal_code (C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\USER_PROGRAM.OBJ)
+     00h     0008h     0009h    0002h      CODE               TOUCH_INT (C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\BS83B08A_CTOUCH_WATER_V501.OBJ)
+     00h     000bh     000bh    0001h      CODE               CTOUCH_VERSION (C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\BS83B08A_CTOUCH_WATER_V501.OBJ)
+     00h     000ch     0010h    0005h      CODE               _USER_PROGRAM_INITIAL (C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\USER_PROGRAM.OBJ)
+     00h     0014h     0017h    0004h      CODE               TIME_BASE_INT (C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\BS83B08A_CTOUCH_WATER_V501.OBJ)
+     00h     0018h     0059h    0042h      CODE               MAIN_PROGRAM (C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\MAIN_PROGRAM_V102.OBJ)
+     00h     005ah     00f9h    00a0h      CODE               EEPROM_PROGRAM (C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\EEPROM_PROGRAM_101.OBJ)
+     00h     00fah     0463h    036ah      CODE               CTOUCH_CODE (C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\BS83B08A_CTOUCH_WATER_V501.OBJ)
+     00h     0464h     046dh    000ah      CODE               _USER_PROGRAM (C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\USER_PROGRAM.OBJ)
+     00h     0060h     00bbh    005ch      DATA     0.5543    CTOUCH_DATA0 (C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\BS83B08A_CTOUCH_WATER_V501.OBJ)
+     00h     00bch     00bdh    0002h      DATA     3         MAIN_DATA (C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\MAIN_PROGRAM_V102.OBJ)
+     00h     00beh     00beh    0001h      DATA     24        USER_DATA (C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\EEPROM_PROGRAM_101.OBJ)
+
+     Local Sections
+
+     Bank    Start     End      Length     Class    AvgIns    Name
+
+     Indepentent Local Sections
+
+     Bank    Start     End      Length     Class    AvgIns    Name
+     00h     00bfh     00bfh    0000h      ILOCAL   0         _USER_PROGRAM_INITIAL (C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\USER_PROGRAM.OBJ)
+     00h     00bfh     00bfh    0000h      ILOCAL   0         _USER_PROGRAM (C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\USER_PROGRAM.OBJ)
+
+     Public Symbols Information
+     Address            Public by Name
+     0082h[3]           _ANY_KEY_PRESSF
+     00fah              _BS83B08A_CTOUCH_WATER_V501
+     0122h              _BS83B08A_CTOUCH_WATER_V501_INI
+     023fh              _CHECK_KEY_WAKEUP
+     0067h              _DATA_BUF
+     006ah              _EEPROM_PROGRAM
+     005ah              _EEPROM_PROGRAM_INITIAL
+     0082h[0]           _FORCE_CALIBRATEF
+     0444h              _GET_ENV_VALUE
+     0438h              _GET_KEY_AMOUNT
+     043ah              _GET_KEY_AMOUNTX3
+     043eh              _GET_KEY_BITMAP
+     0434h              _GET_LIB_VER
+     0441h              _GET_RCC_VALUE
+     0447h              _GET_REF_VALUE
+     00beh[0]           _GET_WATER_EEPROM_STATE
+     0060h              _GLOBE_VARIES
+     0004h              _Interrupt_Extemal
+     0075h              _KEY_DATA
+     0074h              _KEY_IO_SEL
+     008bh              _KEY_REF
+     0083h              _KEY_STATUS
+     0122h              _LIBRARY_RESET
+     0049h              _LOAD_HXT_REFERENCE
+     0049h              _LOAD_TKS_GLOBE_VARIES
+     0082h[2]           _SCAN_CYCLEF
+     0082h[5]           _TKS_250MSF
+     0082h[6]           _TKS_500MSF
+     0082h[4]           _TKS_63MSF
+     0082h[1]           _TKS_ACTIVEF
+     0082h              _TKS_FLAGA
+     006fh              _TKS_TIME_BASE
+     0464h              _USER_PROGRAM
+     000ch              _USER_PROGRAM_INITIAL
+     00e0h              _WATER_CAP_REBLA_INIT
+     00beh              _WATER_FLAG
+
+     Address            Public by Value
+     0004h              _Interrupt_Extemal
+     000ch              _USER_PROGRAM_INITIAL
+     0049h              _LOAD_TKS_GLOBE_VARIES
+     0049h              _LOAD_HXT_REFERENCE
+     005ah              _EEPROM_PROGRAM_INITIAL
+     0060h              _GLOBE_VARIES
+     0067h              _DATA_BUF
+     006ah              _EEPROM_PROGRAM
+     006fh              _TKS_TIME_BASE
+     0074h              _KEY_IO_SEL
+     0075h              _KEY_DATA
+     0082h              _TKS_FLAGA
+     0083h              _KEY_STATUS
+     008bh              _KEY_REF
+     00beh              _WATER_FLAG
+     00e0h              _WATER_CAP_REBLA_INIT
+     00fah              _BS83B08A_CTOUCH_WATER_V501
+     0122h              _LIBRARY_RESET
+     0122h              _BS83B08A_CTOUCH_WATER_V501_INI
+     023fh              _CHECK_KEY_WAKEUP
+     0082h[0]           _FORCE_CALIBRATEF
+     0082h[1]           _TKS_ACTIVEF
+     0082h[2]           _SCAN_CYCLEF
+     0082h[3]           _ANY_KEY_PRESSF
+     0082h[4]           _TKS_63MSF
+     0082h[5]           _TKS_250MSF
+     0082h[6]           _TKS_500MSF
+     0434h              _GET_LIB_VER
+     0438h              _GET_KEY_AMOUNT
+     043ah              _GET_KEY_AMOUNTX3
+     043eh              _GET_KEY_BITMAP
+     0441h              _GET_RCC_VALUE
+     0444h              _GET_ENV_VALUE
+     0447h              _GET_REF_VALUE
+     0464h              _USER_PROGRAM
+     00beh[0]           _GET_WATER_EEPROM_STATE
+
+
+ROM Usage Statistics
+     Size      Used     Percentage
+     0800h     0467h    55%
+
+RAM Usage Statistics
+    Bank      Size      Used     Percentage
+     00h       00a0h     005fh    59%
+     Total     00a0h     005fh    59%
+
+Use Stack Count
+_USER_PROGRAM: 0
+
+Call Tree
+    _USER_PROGRAM
+
+HLINK: Program entry point at section 'PROGRAM_ENTRY' (address 0) of file 'C:\Users\tony\Desktop\水位偵測\單點檢水\20180925_BS83B08A_TOUCH_WATER_V300_Source\OUTPUT\MAIN_PROGRAM_V102.OBJ'
+
+Total 0 error(s), Total 0 Warning(s)

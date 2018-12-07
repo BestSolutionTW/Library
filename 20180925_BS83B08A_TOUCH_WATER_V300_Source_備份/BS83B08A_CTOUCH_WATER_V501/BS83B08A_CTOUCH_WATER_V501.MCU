@@ -1,0 +1,5 @@
+
+
+ifndef TB0E
+	#define	TB0E TBE
+endif

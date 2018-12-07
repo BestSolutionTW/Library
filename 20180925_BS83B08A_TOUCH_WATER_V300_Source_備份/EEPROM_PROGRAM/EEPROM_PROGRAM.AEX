@@ -1,0 +1,16 @@
+
+;;******************************************************
+;;***** USER PROGRAM EXTERNAL REFERENCE FOR ASM CODE   *
+;;******************************************************
+EXTERN  _EEPROM_PROGRAM_INITIAL   :NEAR
+EXTERN  _EEPROM_PROGRAM           :NEAR
+
+EXTERN  _WATER_CAP_REBLA_INIT     :NEAR
+EXTERN  _WATER_FLAG               :BYTE
+EXTERN  _GET_WATER_EEPROM_STATE   :BIT
+
+
+
+
+
+

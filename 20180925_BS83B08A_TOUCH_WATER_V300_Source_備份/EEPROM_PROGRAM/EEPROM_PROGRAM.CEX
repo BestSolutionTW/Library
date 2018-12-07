@@ -1,0 +1,20 @@
+
+//***************************************************
+//***** USER PROGRAM EXTERNAL REFERENCE FOR C CODE **
+//***************************************************
+extern  void    EEPROM_PROGRAM_INITIAL();      
+extern  void    EEPROM_PROGRAM();       
+extern  void    WATER_CAP_REBLA_INIT();
+
+
+#ifdef  _CCV3_
+
+extern _TKS_FLAGA_type             WATER_FLAG;
+#define GET_WATER_EEPROM_STATE     WATER_FLAG.bits.b0
+
+#else
+#pragma rambank0
+extern  unsigned char WATER_FLAG;
+extern  bit     GET_WATER_EEPROM_STATE; 
+
+#endif
